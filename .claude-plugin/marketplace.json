@@ -1,0 +1,13 @@
+{
+  "name": "jauge-conso",
+  "owner": {
+    "name": "zepur3"
+  },
+  "plugins": [
+    {
+      "name": "jauge-conso",
+      "source": "./"
+    }
+  ],
+  "description": "Jauges de limites d’usage Claude Code (5 h, semaine) au-dessus du prompt"
+}
