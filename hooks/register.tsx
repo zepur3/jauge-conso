@@ -36,11 +36,24 @@ function duree(ms: number): string {
   return `${Math.floor(h / 24)} j ${h % 24} h`
 }
 
-function couleur(pct: number): 'success' | 'warning' | 'error' {
-  if (pct >= 80) return 'error'
-  if (pct >= 50) return 'warning'
-  return 'success'
+// Dégradé chaud : crème (#fff1b8) -> or (#f6c453) -> orange (#f08a2c) -> rouge braise (#d9452b).
+const STOPS: [number, number, number][] = [[0xff, 0xf1, 0xb8], [0xf6, 0xc4, 0x53], [0xf0, 0x8a, 0x2c], [0xd9, 0x45, 0x2b]]
+const hex = (n: number) => Math.round(n).toString(16).padStart(2, '0')
+
+function chaud(t: number): string {
+  const x = Math.min(1, Math.max(0, t)) * (STOPS.length - 1)
+  const i = Math.min(STOPS.length - 2, Math.floor(x))
+  const f = x - i
+  const [a, b] = [STOPS[i], STOPS[i + 1]]
+  return `#${hex(a[0] + (b[0] - a[0]) * f)}${hex(a[1] + (b[1] - a[1]) * f)}${hex(a[2] + (b[2] - a[2]) * f)}`
 }
+
+function couleur(pct: number): string {
+  return chaud(pct / 100)
+}
+
+const OK = '#f6c453'
+const ALERTE = '#ff6a3d'
 
 type Rythme = { ok: boolean; texte: string }
 
@@ -139,11 +152,13 @@ export const register: Register = on => {
             <Text weight="semibold">{NOMS[f.kind] ?? f.kind}</Text>
           </Box>
           <Text>
-            <Text color={couleur(pct)}>{'█'.repeat(pleines)}</Text>
+            {Array.from({ length: pleines }, (_, k) => (
+              <Text color={chaud(k / (CASES - 1))}>{'█'}</Text>
+            ))}
             <Text dimColor>{'░'.repeat(CASES - pleines)}</Text>
             <Text color={couleur(pct)}>{`  ${pct} %`}</Text>
             {r ? (
-              <Text color={r.ok ? 'success' : 'warning'}>{`   ${r.ok ? '✓' : '⚠'} ${r.texte}`}</Text>
+              <Text color={r.ok ? OK : ALERTE}>{`   ${r.ok ? '✓' : '⚠'} ${r.texte}`}</Text>
             ) : null}
             {aFin ? <Text dimColor>{`   · remise dans ${duree(fin - now)}`}</Text> : null}
           </Text>

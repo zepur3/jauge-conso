@@ -2,7 +2,7 @@
 
 Une barre au-dessus de la zone de message de Claude Code (terminal et app desktop) qui montre tes limites d'usage d'abonnement :
 
-- **5 h** et **Semaine** : une jauge du pourcentage déjà consommé ;
+- **5 h** et **Semaine** : une jauge en dégradé chaud (crème → or → orange → braise) du pourcentage déjà consommé ;
 - **✓ tu tiendras** / **⚠ à ce rythme, limite vers HH:MM** : projection à ton rythme moyen depuis le début de la fenêtre ;
 - **remise dans …** : compte à rebours avant la remise à zéro ;
 - le coût indicatif de la session (équivalent API, inclus dans le forfait) ;

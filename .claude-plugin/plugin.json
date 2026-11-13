@@ -1,6 +1,6 @@
 {
   "name": "jauge-conso",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Barre au-dessus du message : limites d'usage Claude (5 h, semaine) utilisées / restantes et heure de remise à zéro",
   "types": "./types/index.d.ts",
   "author": {
